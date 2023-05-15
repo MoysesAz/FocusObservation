@@ -35,7 +35,6 @@ struct FocusObservationView: View {
             .onAppear{
                 resetRectangles()
                 selectedRectangle()
-
                 viewModel.setupInput()
                 viewModel.setupPhotoOutput()
                 viewModel.start()

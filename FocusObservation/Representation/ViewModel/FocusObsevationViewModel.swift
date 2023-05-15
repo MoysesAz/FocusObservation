@@ -59,7 +59,7 @@ extension FocusObsevationViewModel: AVCapturePhotoCaptureDelegate {
             guard let face = result else { return }
 
             debugEyesPoints(result: face, imageSize: image.size)
-            let leftEyePoints = face.landmarks!.leftEye!.normalizedPoints.map({ $0.normalize(size: image.size)})
+            let leftEyePoints = face.landmarks!.rightEyebrow!.normalizedPoints.map({ $0.normalize(size: image.size)})
             let newImage = debugLandmarks(on: image, points: leftEyePoints)
             fileManager.savePng(image: newImage!,
                                 nameImage: nameImage,
@@ -100,13 +100,13 @@ extension FocusObsevationViewModel: AVCapturePhotoCaptureDelegate {
     }
 
     private func debugLandmarks(on image: UIImage, points: [CGPoint]) -> UIImage? {
-        let pointSize: CGFloat = 15
+        let pointSize: CGFloat = 10
         UIGraphicsBeginImageContextWithOptions(image.size, false, 0.0)
         image.draw(in: CGRect(origin: .zero, size: image.size))
         let context = UIGraphicsGetCurrentContext()!
         context.setFillColor(UIColor.green.cgColor)
         for point in points {
-            let rect = CGRect(x: point.x, y: image.size.height - point.y, width: pointSize, height: pointSize)
+            let rect = CGRect(x: point.x - pointSize/2, y: point.y - pointSize/2, width: pointSize, height: pointSize)
             context.fillEllipse(in: rect)
         }
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
