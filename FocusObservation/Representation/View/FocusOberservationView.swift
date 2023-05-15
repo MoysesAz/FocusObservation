@@ -17,7 +17,7 @@ struct FocusObservationView: View {
                 ForEach((0..<2), id: \.self) {y in
                     VStack {
                         ForEach((0..<2), id: \.self) {x in
-                            let index = (y)*2 + x // calcular o índice correto
+                            let index = (y)*2 + x // calcular o índice correto ; Criar generalizacao de casos
                             Rectangle()
                                 .foregroundColor(rectangles[index] ? .red : .black)
                         }

@@ -79,6 +79,7 @@
 		95F12E802A0D1E6600E47484 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				95F12E8C2A0D23D900E47484 /* ImagesManager.swift */,
 				95F12E892A0D234600E47484 /* extensions */,
 			);
 			path = Utils;
@@ -90,7 +91,6 @@
 				95F12E842A0D1EC200E47484 /* Controller */,
 				95F12E832A0D1EB200E47484 /* ViewModel */,
 				95F12E822A0D1EAE00E47484 /* View */,
-				95F12E8C2A0D23D900E47484 /* ImagesManager.swift */,
 			);
 			path = Representation;
 			sourceTree = "<group>";
