@@ -58,9 +58,11 @@ extension FocusObsevationViewModel: AVCapturePhotoCaptureDelegate {
             let result = detectFace(in: image)
             guard let face = result else { return }
 
-            debugEyesPoints(result: face, imageSize: image.size)
-            let leftEyePoints = face.landmarks!.rightEyebrow!.normalizedPoints.map({ $0.normalize(size: image.size)})
-            let newImage = debugLandmarks(on: image, points: leftEyePoints)
+//            debugEyesPoints(result: face, imageSize: image.size)
+//            let leftEyePoints = face.landmarks!.rightEyebrow!.normalizedPoints.map({ $0.normalize(size: image.size)})
+            let rect = convertNormalizedRect(face.boundingBox, imageSize: image.size)
+            let halfRect = CGRect(x: rect.origin.x, y: rect.origin.y + rect.size.height/2, width: rect.width, height: rect.height * 0.5)
+            let newImage = cropImage(image, toRect: halfRect)
             fileManager.savePng(image: newImage!,
                                 nameImage: nameImage,
                                 nameFolder: descriptionPosisionPixel
@@ -77,9 +79,24 @@ extension FocusObsevationViewModel: AVCapturePhotoCaptureDelegate {
         return nameImage
     }
 
-    func detectFace(in image: UIImage) -> VNFaceObservation? {
+    func detectLandmark(in image: UIImage) -> VNFaceObservation? {
         guard let ciImage = CIImage(image: image) else { return nil }
         let request = VNDetectFaceLandmarksRequest()
+        let handler = VNImageRequestHandler(ciImage: ciImage)
+        do {
+            try handler.perform([request])
+
+            guard let result = request.results?.first as? VNFaceObservation else { return nil }
+            return result
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
+
+    func detectFace(in image: UIImage) -> VNFaceObservation? {
+        guard let ciImage = CIImage(image: image) else { return nil }
+        let request = VNDetectFaceRectanglesRequest()
         let handler = VNImageRequestHandler(ciImage: ciImage)
         do {
             try handler.perform([request])
