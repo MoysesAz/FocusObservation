@@ -8,6 +8,7 @@
 import AVFoundation
 import UIKit
 import Vision
+import Utils
 
 class FocusObsevationViewModel: NSObject {
     let session = AVCaptureSession()

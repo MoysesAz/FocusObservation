@@ -7,14 +7,14 @@
 
 import SwiftUI
 extension UIImage {
-    func inCGImage() -> CGImage {
+    public func inCGImage() -> CGImage {
         return self as! CGImage
     }
 }
 
 
 extension CGPoint {
-    func normalize(size: CGSize) -> CGPoint {
+    public func normalize(size: CGSize) -> CGPoint {
         let x = self.x * size.width
         let y = self.y * size.height
         

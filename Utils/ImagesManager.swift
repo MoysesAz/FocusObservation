@@ -7,10 +7,11 @@
 
 import UIKit
 
-class ImagesManager {
+public class ImagesManager {
+    public init(){}
     let fileManager = FileManager.default
 
-    func savePng(image: UIImage,
+    public func savePng(image: UIImage,
                  nameImage: String = "NameImage.png",
                  nameFolder: String = "NameFolder")
     {
