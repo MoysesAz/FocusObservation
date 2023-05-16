@@ -5,13 +5,13 @@
 //  Created by Moyses Miranda do Vale Azevedo on 11/05/23.
 //
 
-import UIKit
+import Foundation
 
-public class ImagesManager {
+public class MyFileManager {
     public init(){}
     let fileManager = FileManager.default
 
-    public func savePng(image: UIImage,
+    public func savePng(imageData: Data,
                  nameImage: String = "NameImage.png",
                  nameFolder: String = "NameFolder")
     {
@@ -37,12 +37,11 @@ public class ImagesManager {
         }
 
         do {
-            try image.pngData()?.write(to: teste)
+            try imageData.write(to: teste)
             print("Imagem salva com sucesso em: \(newFolderUrl.absoluteString)")
         } catch {
             print("Erro ao salvar imagem: \(error.localizedDescription)")
         }
     }
-
 }
 

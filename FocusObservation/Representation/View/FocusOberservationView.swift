@@ -10,7 +10,7 @@ import SwiftUI
 struct FocusObservationView: View {
     let viewModel = FocusObsevationViewModel()
     @State var rectangles: [Bool] = (0..<4).map { _ in false}
-    @State var pointer: Int = 0
+    @State var pointer: Int = 1
 
     var body: some View {
             HStack {
@@ -38,8 +38,6 @@ struct FocusObservationView: View {
                 viewModel.setupInput()
                 viewModel.setupPhotoOutput()
                 viewModel.start()
-                newPointer()
-
             }
     }
 

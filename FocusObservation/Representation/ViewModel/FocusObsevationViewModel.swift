@@ -7,13 +7,15 @@
 
 import AVFoundation
 import UIKit
-import Vision
 import Utils
+
 
 class FocusObsevationViewModel: NSObject {
     let session = AVCaptureSession()
     var photoOutput = AVCapturePhotoOutput()
-    let fileManager = ImagesManager()
+    let fileManager = MyFileManager()
+    let imageManager = ImageManager()
+    let visionManager = VisionManager()
     var descriptionPosisionPixel: String = ""
 
     func setupInput() {
@@ -54,110 +56,35 @@ class FocusObsevationViewModel: NSObject {
 
 extension FocusObsevationViewModel: AVCapturePhotoCaptureDelegate {
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-        if let imageData = photo.fileDataRepresentation(), let image = UIImage(data: imageData) {
+        if let imageData = photo.fileDataRepresentation() {
             let nameImage = createImageName()
-            let result = detectFace(in: image)
+            let result = visionManager.detectFace(imageData: imageData)
             guard let face = result else { return }
+            guard let uiImage = UIImage(data: imageData) else { return }
 
-//            debugEyesPoints(result: face, imageSize: image.size)
-//            let leftEyePoints = face.landmarks!.rightEyebrow!.normalizedPoints.map({ $0.normalize(size: image.size)})
-            let rect = convertNormalizedRect(face.boundingBox, imageSize: image.size)
+            let rect = face.boundingBox.convertNormalizedRect(imageSize: uiImage.size)
             let halfRect = CGRect(x: rect.origin.x, y: rect.origin.y + rect.size.height/2, width: rect.width, height: rect.height * 0.5)
-            let newImage = cropImage(image, toRect: halfRect)
-            fileManager.savePng(image: newImage!,
+
+            guard let ciImage = CIImage(image: uiImage) else { return }
+            guard let cropciImage = imageManager.cropImage(ciImage, toRect: halfRect) else { return }
+            let newuiImage = UIImage(cgImage: cropciImage)
+            let imageData = newuiImage.pngData()
+            let newData = imageData
+
+            fileManager.savePng(imageData: newData!,
                                 nameImage: nameImage,
                                 nameFolder: descriptionPosisionPixel
             )
         }
     }
 
-    private func createImageName() -> String{
+    private func createImageName() -> String {
         let currentDate = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd_MM_yyyy_HH_mm_ss"
         let formattedDate = dateFormatter.string(from: currentDate)
         let nameImage = formattedDate + "_" + descriptionPosisionPixel + ".png"
         return nameImage
-    }
-
-    func detectLandmark(in image: UIImage) -> VNFaceObservation? {
-        guard let ciImage = CIImage(image: image) else { return nil }
-        let request = VNDetectFaceLandmarksRequest()
-        let handler = VNImageRequestHandler(ciImage: ciImage)
-        do {
-            try handler.perform([request])
-
-            guard let result = request.results?.first as? VNFaceObservation else { return nil }
-            return result
-        } catch {
-            print(error.localizedDescription)
-            return nil
-        }
-    }
-
-    func detectFace(in image: UIImage) -> VNFaceObservation? {
-        guard let ciImage = CIImage(image: image) else { return nil }
-        let request = VNDetectFaceRectanglesRequest()
-        let handler = VNImageRequestHandler(ciImage: ciImage)
-        do {
-            try handler.perform([request])
-
-            guard let result = request.results?.first as? VNFaceObservation else { return nil }
-            return result
-        } catch {
-            print(error.localizedDescription)
-            return nil
-        }
-    }
-
-    private func debugEyesPoints(result: VNFaceObservation, imageSize: CGSize) {
-        let leftEyePoints = result.landmarks!.leftEye!.normalizedPoints.map({ $0.normalize(size: imageSize)})
-        let rightEyePoints = result.landmarks!.rightEye!.normalizedPoints.map({ $0.normalize(size: imageSize)})
-        print("Primeiro :", leftEyePoints)
-        print("Segundo :", rightEyePoints)
-    }
-
-    private func debugLandmarks(on image: UIImage, points: [CGPoint]) -> UIImage? {
-        let pointSize: CGFloat = 10
-        UIGraphicsBeginImageContextWithOptions(image.size, false, 0.0)
-        image.draw(in: CGRect(origin: .zero, size: image.size))
-        let context = UIGraphicsGetCurrentContext()!
-        context.setFillColor(UIColor.green.cgColor)
-        for point in points {
-            let rect = CGRect(x: point.x - pointSize/2, y: point.y - pointSize/2, width: pointSize, height: pointSize)
-            context.fillEllipse(in: rect)
-        }
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage
-    }
-
-    func drawRectangle(on image: UIImage, withRect rect: CGRect, lineWidth: CGFloat, lineColor: UIColor) -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(image.size, false, 0.0)
-        image.draw(in: CGRect(origin: .zero, size: image.size))
-        let context = UIGraphicsGetCurrentContext()!
-        context.setStrokeColor(lineColor.cgColor)
-        context.setLineWidth(lineWidth)
-        context.stroke(rect)
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage
-    }
-
-    func cropImage(_ image: UIImage, toRect rect: CGRect) -> UIImage? {
-        guard let ciImage = CIImage(image: image) else { return nil }
-        let croppedCIImage = ciImage.cropped(to: rect)
-        let context = CIContext(options: nil)
-        guard let cgImage = context.createCGImage(croppedCIImage, from: croppedCIImage.extent) else { return nil }
-        return UIImage(cgImage: cgImage)
-    }
-
-    func convertNormalizedRect(_ normalizedRect: CGRect, imageSize: CGSize) -> CGRect {
-        let origin = CGPoint(x: normalizedRect.origin.x * imageSize.width,
-                             y: normalizedRect.origin.y * imageSize.height)
-        let size = CGSize(width: normalizedRect.size.width * imageSize.width,
-                          height: normalizedRect.size.height * imageSize.height)
-        return CGRect(origin: origin, size: size)
     }
 }
 
