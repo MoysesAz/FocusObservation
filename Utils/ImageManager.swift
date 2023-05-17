@@ -10,11 +10,16 @@ import CoreImage
 
 public class ImageManager {
     public init () {}
-
-    public func cropImage(_ image: CIImage, toRect rect: CGRect) -> CGImage? {
+    
+    public func cropImage(_ image: CIImage, toRect rect: CGRect) -> CIImage? {
         let croppedImage = image.cropped(to: rect)
-        let context = CIContext(options: nil)
-        guard let newImage = context.createCGImage(croppedImage, from: croppedImage.extent) else { return nil }
-        return newImage
+        return croppedImage
+    }
+
+    public func convertCIImageToData(ciImage: CIImage) -> Data? {
+        guard let tiffData = CIContext().tiffRepresentation(of: ciImage, format: .RGBA8, colorSpace: CGColorSpaceCreateDeviceRGB()) else {
+            return nil
+        }
+        return tiffData
     }
 }

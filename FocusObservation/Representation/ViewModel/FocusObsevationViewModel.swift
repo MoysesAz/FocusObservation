@@ -67,7 +67,7 @@ extension FocusObsevationViewModel: AVCapturePhotoCaptureDelegate {
 
             guard let ciImage = CIImage(image: uiImage) else { return }
             guard let cropciImage = imageManager.cropImage(ciImage, toRect: halfRect) else { return }
-            let newuiImage = UIImage(cgImage: cropciImage)
+            let newuiImage = UIImage(ciImage: cropciImage)
             let imageData = newuiImage.pngData()
             let newData = imageData
 

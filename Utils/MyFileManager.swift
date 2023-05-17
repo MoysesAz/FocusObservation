@@ -19,7 +19,7 @@ public class MyFileManager {
             return nil
         }
 
-        let newFolderUrl = url.appending(component: "DataSet")
+        let newFolderUrl = url.appending(component: "DataSetEyes")
         return newFolderUrl
     }
 
@@ -75,7 +75,7 @@ public class MyFileManager {
     }
 
 
-    private func directorysInUrl(url: URL) -> [URL]? {
+    public func directorysInUrl(url: URL) -> [URL]? {
         var urls: [URL] = []
         do {
             let fileURLS = try fileManager.contentsOfDirectory(at: url, includingPropertiesForKeys: nil)
@@ -101,7 +101,7 @@ public class MyFileManager {
         }
     }
 
-    private func filesInUrl(url: URL) -> [URL]? {
+    public func filesInUrl(url: URL) -> [URL]? {
         var files: [URL] = []
         do {
             let fileURLS = try fileManager.contentsOfDirectory(at: url, includingPropertiesForKeys: nil)

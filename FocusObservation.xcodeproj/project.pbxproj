@@ -10,8 +10,8 @@
 		9539F95E2A13A5460002864E /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F12E8A2A0D236100E47484 /* UIImage+.swift */; };
 		9539F9622A13A5E70002864E /* CGPoint+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9539F9612A13A5E70002864E /* CGPoint+.swift */; };
 		95C89DE52A14F5090042BFC5 /* URL+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C89DE42A14F5090042BFC5 /* URL+.swift */; };
+		95C89DE72A150FAA0042BFC5 /* CGRect+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E639562A13BC1100EC0A2C /* CGRect+.swift */; };
 		95E6393D2A13A83C00EC0A2C /* Data+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E6393C2A13A83C00EC0A2C /* Data+.swift */; };
-		95E639572A13BC1100EC0A2C /* CGRect+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E639562A13BC1100EC0A2C /* CGRect+.swift */; };
 		95E639662A13BFA000EC0A2C /* Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 95E639652A13BFA000EC0A2C /* Utils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		95E639732A13C0FD00EC0A2C /* Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95E639632A13BFA000EC0A2C /* Utils.framework */; };
 		95E639742A13C0FE00EC0A2C /* Utils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 95E639632A13BFA000EC0A2C /* Utils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -148,7 +148,6 @@
 				95F12E8A2A0D236100E47484 /* UIImage+.swift */,
 				9539F9612A13A5E70002864E /* CGPoint+.swift */,
 				95E6393C2A13A83C00EC0A2C /* Data+.swift */,
-				95E639562A13BC1100EC0A2C /* CGRect+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -156,6 +155,7 @@
 		95C89DE62A14F50D0042BFC5 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				95E639562A13BC1100EC0A2C /* CGRect+.swift */,
 				95C89DE42A14F5090042BFC5 /* URL+.swift */,
 			);
 			path = Extensions;
@@ -407,6 +407,7 @@
 				95E6397B2A13C12B00EC0A2C /* ImageManager.swift in Sources */,
 				95E6397C2A13C12B00EC0A2C /* MyFileManager.swift in Sources */,
 				95C89DE52A14F5090042BFC5 /* URL+.swift in Sources */,
+				95C89DE72A150FAA0042BFC5 /* CGRect+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,7 +416,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				95E6393D2A13A83C00EC0A2C /* Data+.swift in Sources */,
-				95E639572A13BC1100EC0A2C /* CGRect+.swift in Sources */,
 				9539F9622A13A5E70002864E /* CGPoint+.swift in Sources */,
 				95F12E702A0D1CB300E47484 /* ViewController.swift in Sources */,
 				9539F95E2A13A5460002864E /* UIImage+.swift in Sources */,

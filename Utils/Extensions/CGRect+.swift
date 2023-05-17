@@ -8,7 +8,7 @@
 import Foundation
 
 extension CGRect {
-    func convertNormalizedRect(imageSize: CGSize) -> CGRect {
+    public func convertNormalizedRect(imageSize: CGSize) -> CGRect {
         let origin = CGPoint(x: self.origin.x * imageSize.width,
                              y: self.origin.y * imageSize.height)
         let size = CGSize(width: self.size.width * imageSize.width,
