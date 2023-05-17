@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9539F95E2A13A5460002864E /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F12E8A2A0D236100E47484 /* UIImage+.swift */; };
 		9539F9622A13A5E70002864E /* CGPoint+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9539F9612A13A5E70002864E /* CGPoint+.swift */; };
+		95C89DE52A14F5090042BFC5 /* URL+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C89DE42A14F5090042BFC5 /* URL+.swift */; };
 		95E6393D2A13A83C00EC0A2C /* Data+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E6393C2A13A83C00EC0A2C /* Data+.swift */; };
 		95E639572A13BC1100EC0A2C /* CGRect+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E639562A13BC1100EC0A2C /* CGRect+.swift */; };
 		95E639662A13BFA000EC0A2C /* Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 95E639652A13BFA000EC0A2C /* Utils.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -82,6 +83,7 @@
 
 /* Begin PBXFileReference section */
 		9539F9612A13A5E70002864E /* CGPoint+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+.swift"; sourceTree = "<group>"; };
+		95C89DE42A14F5090042BFC5 /* URL+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+.swift"; sourceTree = "<group>"; };
 		95E6393C2A13A83C00EC0A2C /* Data+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+.swift"; sourceTree = "<group>"; };
 		95E639562A13BC1100EC0A2C /* CGRect+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+.swift"; sourceTree = "<group>"; };
 		95E639632A13BFA000EC0A2C /* Utils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Utils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,6 +153,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		95C89DE62A14F50D0042BFC5 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				95C89DE42A14F5090042BFC5 /* URL+.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		95E639582A13BE1E00EC0A2C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +171,7 @@
 		95E639642A13BFA000EC0A2C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				95C89DE62A14F50D0042BFC5 /* Extensions */,
 				95E639652A13BFA000EC0A2C /* Utils.h */,
 				95E639782A13C12B00EC0A2C /* ImageManager.swift */,
 				95E639792A13C12B00EC0A2C /* MyFileManager.swift */,
@@ -395,6 +406,7 @@
 				95E6397D2A13C12B00EC0A2C /* VisionManager.swift in Sources */,
 				95E6397B2A13C12B00EC0A2C /* ImageManager.swift in Sources */,
 				95E6397C2A13C12B00EC0A2C /* MyFileManager.swift in Sources */,
+				95C89DE52A14F5090042BFC5 /* URL+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

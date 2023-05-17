@@ -8,6 +8,10 @@
 import Foundation
 import Utils
 
+let myFileManager = MyFileManager()
+let visionManager = VisionManager()
+let imageManager = ImageManager()
 
-
-
+func main() {
+    guard let dataSet = myFileManager.urlDataSet() else { return }
+}
